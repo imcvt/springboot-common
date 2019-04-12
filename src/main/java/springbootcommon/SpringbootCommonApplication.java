@@ -1,4 +1,4 @@
-package springbootcommon.springbootcommon;
+package springbootcommon;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
