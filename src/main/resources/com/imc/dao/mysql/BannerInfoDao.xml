@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imc.dao.mysql.BannerInfoDao">
+  <resultMap id="BaseResultMap" type="com.imc.po.BannerInfoPo">
+    <id column="BANNER_ID" jdbcType="VARCHAR" property="bannerId" />
+    <result column="BANNER_NAME" jdbcType="VARCHAR" property="bannerName" />
+    <result column="HREF_URL" jdbcType="VARCHAR" property="hrefUrl" />
+    <result column="BANNER_IMAGE" jdbcType="VARCHAR" property="bannerImage" />
+    <result column="BANNER_DESC" jdbcType="VARCHAR" property="bannerDesc" />
+    <result column="BANNER_SN" jdbcType="INTEGER" property="bannerSn" />
+    <result column="BANNER_STATUS" jdbcType="INTEGER" property="bannerStatus" />
+    <result column="EFFECTIVE_START_DATE" jdbcType="TIMESTAMP" property="effectiveStartDate" />
+    <result column="EFFECTIVE_END_DATE" jdbcType="TIMESTAMP" property="effectiveEndDate" />
+    <result column="IS_LIVE_EVENT" jdbcType="INTEGER" property="isLiveEvent" />
+    <result column="EVENT_TITLE" jdbcType="VARCHAR" property="eventTitle" />
+    <result column="EVENT_START_TIME" jdbcType="TIMESTAMP" property="eventStartTime" />
+    <result column="EVENT_END_TIME" jdbcType="TIMESTAMP" property="eventEndTime" />
+    <result column="EVENT_DESC" jdbcType="VARCHAR" property="eventDesc" />
+    <result column="IS_DEL" jdbcType="INTEGER" property="isDel" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    BANNER_ID, BANNER_NAME, HREF_URL, BANNER_IMAGE, BANNER_DESC, BANNER_SN, BANNER_STATUS,
+    EFFECTIVE_START_DATE, EFFECTIVE_END_DATE, IS_LIVE_EVENT, EVENT_TITLE, EVENT_START_TIME,
+    EVENT_END_TIME, EVENT_DESC, IS_DEL, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BANNER_INFO
+    where BANNER_ID = #{bannerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    UPDATE BANNER_INFO SET IS_DEL = 1
+    where BANNER_ID = #{bannerId,jdbcType=VARCHAR}
+  </delete>
+    <update id="batchDelete">
+        UPDATE BANNER_INFO SET IS_DEL = 1
+        where BANNER_ID IN
+        <foreach collection="list" item="bannerId" open="(" close=")" separator=",">
+          #{bannerId}
+        </foreach>
+    </update>
+  <insert id="insertSelective" parameterType="com.imc.po.BannerInfoPo">
+    insert into BANNER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bannerId != null">
+        BANNER_ID,
+      </if>
+      <if test="bannerName != null">
+        BANNER_NAME,
+      </if>
+      <if test="hrefUrl != null">
+        HREF_URL,
+      </if>
+      <if test="bannerImage != null">
+        BANNER_IMAGE,
+      </if>
+      <if test="bannerDesc != null">
+        BANNER_DESC,
+      </if>
+      <if test="bannerSn != null">
+        BANNER_SN,
+      </if>
+      <if test="bannerStatus != null">
+        BANNER_STATUS,
+      </if>
+      <if test="effectiveStartDate != null">
+        EFFECTIVE_START_DATE,
+      </if>
+      <if test="effectiveEndDate != null">
+        EFFECTIVE_END_DATE,
+      </if>
+      <if test="isLiveEvent != null">
+        IS_LIVE_EVENT,
+      </if>
+      <if test="eventTitle != null">
+        EVENT_TITLE,
+      </if>
+      <if test="eventStartTime != null">
+        EVENT_START_TIME,
+      </if>
+      <if test="eventEndTime != null">
+        EVENT_END_TIME,
+      </if>
+      <if test="eventDesc != null">
+        EVENT_DESC,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bannerId != null">
+        #{bannerId,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerName != null">
+        #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="hrefUrl != null">
+        #{hrefUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImage != null">
+        #{bannerImage,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDesc != null">
+        #{bannerDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerSn != null">
+        #{bannerSn,jdbcType=INTEGER},
+      </if>
+      <if test="bannerStatus != null">
+        #{bannerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveStartDate != null">
+        #{effectiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null">
+        #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLiveEvent != null">
+        #{isLiveEvent,jdbcType=INTEGER},
+      </if>
+      <if test="eventTitle != null">
+        #{eventTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eventStartTime != null">
+        #{eventStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventEndTime != null">
+        #{eventEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventDesc != null">
+        #{eventDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imc.po.BannerInfoPo">
+    update BANNER_INFO
+    <set>
+      <if test="bannerName != null">
+        BANNER_NAME = #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="hrefUrl != null">
+        HREF_URL = #{hrefUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerImage != null">
+        BANNER_IMAGE = #{bannerImage,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerDesc != null">
+        BANNER_DESC = #{bannerDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerSn != null">
+        BANNER_SN = #{bannerSn,jdbcType=INTEGER},
+      </if>
+      <if test="bannerStatus != null">
+        BANNER_STATUS = #{bannerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveStartDate != null">
+        EFFECTIVE_START_DATE = #{effectiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null">
+        EFFECTIVE_END_DATE = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLiveEvent != null">
+        IS_LIVE_EVENT = #{isLiveEvent,jdbcType=INTEGER},
+      </if>
+      <if test="eventTitle != null">
+        EVENT_TITLE = #{eventTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eventStartTime != null">
+        EVENT_START_TIME = #{eventStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventEndTime != null">
+        EVENT_END_TIME = #{eventEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventDesc != null">
+        EVENT_DESC = #{eventDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BANNER_ID = #{bannerId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="bannerShowList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM BANNER_INFO WHERE IS_DEL = 2 AND BANNER_STATUS = #{bannerStatus}
+          AND #{currentDate} BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+          ORDER BY BANNER_SN ASC,UPDATE_TIME DESC
+          LIMIT #{count}
+    </select>
+
+  <select id="bannerList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM BANNER_INFO WHERE IS_DEL = 2
+        <if test="bannerName != null">
+            AND BANNER_NAME LIKE CONCAT('%',#{bannerName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="bannerStatus != null and bannerStatus != ''">
+          <choose>
+            <when test="bannerStatus == 1">
+              AND SYSDATE() BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+            </when>
+            <otherwise>
+              AND SYSDATE() NOT BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+            </otherwise>
+          </choose>
+        </if>
+        <if test="createTimeStart != null">
+            AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') <![CDATA[>=]]> #{createTimeStartStr,jdbcType=TIMESTAMP}
+        </if>
+        <if test="createTimeEnd != null">
+            AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') <![CDATA[<=]]> #{createTimeEndStr,jdbcType=TIMESTAMP}
+        </if>
+        ORDER BY CREATE_TIME DESC LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+
+  <select id="getTotalCount" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM BANNER_INFO WHERE IS_DEL = 2
+    <if test="bannerName != null">
+      AND BANNER_NAME LIKE CONCAT('%',#{bannerName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="bannerStatus != null and bannerStatus != ''">
+      <choose>
+        <when test="bannerStatus == 1">
+          AND SYSDATE() BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+        </when>
+        <otherwise>
+          AND SYSDATE() NOT BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+        </otherwise>
+      </choose>
+    </if>
+    <if test="createTimeStart != null">
+      AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') <![CDATA[>=]]> #{createTimeStartStr,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createTimeEnd != null">
+      AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') <![CDATA[<=]]> #{createTimeEndStr,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
+  <select id="bannerListByIds" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM BANNER_INFO WHERE IS_DEL = 2 AND BANNER_ID IN
+    <foreach collection="list" item="bannerId" open="(" close=")" separator=",">
+      #{bannerId}
+    </foreach>
+  </select>
+
+  <select id="getCountByStatus" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM BANNER_INFO WHERE IS_DEL = 2
+      <if test="bannerStatus != null">
+          AND BANNER_STATUS = #{bannerStatus,jdbcType=INTEGER}
+      </if>
+      <if test="bannerId != null">
+          AND BANNER_ID <![CDATA[!=]]> #{bannerId,jdbcType=INTEGER}
+      </if>
+  </select>
+</mapper>
