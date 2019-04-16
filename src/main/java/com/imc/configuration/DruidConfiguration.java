@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 /**
  * @author luoly
- * @date 2019/4/12 11:05
+ * @date 2019/4/12 11:06
  * @description
  */
 @Configuration
