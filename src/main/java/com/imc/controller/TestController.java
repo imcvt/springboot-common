@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.imc.dto.BannerInfoDto;
 import com.imc.filter.BannerFilter;
 import com.imc.service.TestService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/4/12 09:47
  * @description
  */
+@Api(value="测试controller",tags={"测试controller"})
 @RestController
 @RequestMapping("/testController")
 public class TestController {
@@ -23,7 +25,7 @@ public class TestController {
     @Autowired
     TestService testService;
 
-    @RequestMapping("/test")
+    @RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
     public void test() {
         System.out.println("==========启动成功==================");
     }
