@@ -1,8 +1,10 @@
 package com.imc.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imc.dao.common.CommonDao;
 import com.imc.dto.BannerInfoDto;
 import com.imc.filter.BannerFilter;
+import com.imc.po.BannerInfoPo;
 import com.imc.service.TestService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class TestController {
     @Autowired
     TestService testService;
 
+    @Autowired
+    CommonDao commonDao;
+
     @RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
     public void test() {
         System.out.println("==========启动成功==================");
@@ -33,6 +38,8 @@ public class TestController {
     @RequestMapping(value = "/bannerDetail", method = {RequestMethod.POST})
     public String bannerDetail(@RequestBody BannerFilter bannerFilter) {
         BannerInfoDto bannerInfoDto = testService.bannerDetail("63b318a2-cba9-4f0a-b46d-4727e6557a41");
+
+        BannerInfoPo bannerInfoPo = commonDao.findObjectById(BannerInfoPo.class, "63b318a2-cba9-4f0a-b46d-4727e6557a41");
         return JSONObject.toJSONString(bannerInfoDto);
     }
 }

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CommonDaoMapper">
+
+	<insert id="insertObject">
+		INSERT INTO ${tableName}
+		<foreach item="item" index="index" collection="columns" open="(" separator="," close=")">
+			${item.name}
+		</foreach>
+		values
+		<foreach item="item" index="index" collection="columns" open="(" separator="," close=")">
+			#{item.value}
+		</foreach>
+	</insert>
+
+	<update id="updateObject">
+		update ${tableName}
+		<set>
+			<foreach item="item" collection="columns">
+				${item.name}=#{item.value},
+			</foreach>
+		</set>
+		where ID=
+		<foreach item="item" collection="columns">
+			<if test="item.name=='id' ">
+				#{item.value}
+			</if>
+		</foreach>
+	</update>
+	
+	<update id="updateClobColumnById" > 
+		update ${tableName} 
+		<set>
+			<foreach item="item" collection="columns">
+				${item.name}=#{item.value},
+			</foreach>
+		</set>	
+		where ID=#{id} 
+	</update>
+
+	<delete id="deleteObject">
+		DELETE FROM ${tableName} WHERE ID=#{id}
+	</delete>
+
+	<delete id="batchDeleteObjects">
+		DELETE FROM ${tableName} WHERE ID in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="findClobContentById" resultType="java.util.HashMap">
+		SELECT 
+		<foreach item="item" collection="clobColumns" open=" " separator="," close=" ">
+			<if test="item!= ''">
+				${item}
+			</if> 
+		</foreach>
+		from ${tableName} t
+		WHERE ID=#{id}
+	</select>
+	
+	<select id="findObjectById" resultType="java.util.HashMap">
+		SELECT 
+		<if test="columns == null or columns.size()==0">
+			*
+		</if>
+		<if test="columns != null and columns.size()!=0">
+			<foreach item="item" collection="columns" open=" " separator="," close=" ">
+				<if test="item!= ''">
+					${item}
+				</if>
+			</foreach>
+		</if>
+		from ${tableName} t
+		WHERE ID=#{id}
+	</select>
+
+	<select id="findObjectsByQueryExpression" resultType="java.util.HashMap">
+		SELECT 
+		<if test="queryExpr.columns.size()==0">
+			*
+		</if>
+		<if test="queryExpr.columns.size()!=0">
+			<foreach item="item" collection="queryExpr.columns" open=" " separator="," close=" ">
+				<if test="item!= ''">
+					${item}
+				</if> 
+			</foreach>
+		</if>
+		from ${tableName} t
+		WHERE 1=1
+		<foreach item="item" collection="queryExpr.conditions">
+			<if test="item.columnName != null">
+				<if test="item.operator.toString()=='isNull'">
+					and ${item.columnName} is null
+				</if>
+				<if test="item.operator.toString()=='isNotNull'">
+					and ${item.columnName} is not null
+				</if>
+				<if test="item.operator.toString()=='equals'">
+					and ${item.columnName}=#{item.operand}
+				</if>
+				<if test="item.operator.toString()=='notEquals'"><![CDATA[
+					and ${item.columnName}<>#{item.operand}
+					]]></if>
+				<if test="item.operator.toString()=='contains'">
+					and ${item.columnName} like "%"#{item.operand}"%"
+				</if>
+				<if test="item.operator.toString()=='notContains'">
+					and ${item.columnName} not like "%"#{item.operand}"%"
+				</if>
+				<if test="item.operator.toString()=='moreThan'">
+					and ${item.columnName} > #{item.operand}
+				</if>
+				<if test="item.operator.toString()=='lessThan'"><![CDATA[
+					and ${item.columnName} < #{item.operand}
+					]]></if>
+				<if test="item.operator.toString()=='moreThanEquals'">
+					and ${item.columnName} >=#{item.operand}
+				</if>
+				<if test="item.operator.toString()=='lessThanEquals'"><![CDATA[
+					and ${item.columnName} <=#{item.operand}
+					]]></if>
+			</if>
+		</foreach>
+
+		<if test="queryExpr.orderBys.size()!=0">
+			order by
+			<foreach item="item" collection="queryExpr.orderBys" open=" " separator="," close=" ">
+				<if test="item.columnName!= ''">
+					${item.columnName} ${item.sortingType}   
+				</if> 
+			</foreach>
+		</if>
+
+		limit #{queryExpr.start},#{queryExpr.limit} 
+	</select>
+
+	<select id="getObjectsCountByQueryExpression" resultType="java.lang.Integer">
+		SELECT count(0) from ${tableName} t WHERE 1=1
+		<foreach item="item" collection="queryExpr.conditions">
+			<if test="item.columnName != null">
+				<if test="item.operator.toString()=='isNull'">
+					and ${item.columnName} is null
+				</if>
+				<if test="item.operator.toString()=='isNotNull'">
+					and ${item.columnName} is not null
+				</if>
+				<if test="item.operator.toString()=='equals'">
+					and ${item.columnName}=#{item.operand}
+				</if>
+				<if test="item.operator.toString()=='notEquals'"><![CDATA[
+					and ${item.columnName}<>#{item.operand}
+					]]></if>
+				<if test="item.operator.toString()=='contains'">
+					and ${item.columnName} like "%"#{item.operand}"%"
+				</if>
+				<if test="item.operator.toString()=='notContains'">
+					and ${item.columnName} not like "%"#{item.operand}"%"
+				</if>
+				<if test="item.operator.toString()=='moreThan'">
+					and ${item.columnName} > #{item.operand}
+				</if>
+				<if test="item.operator.toString()=='lessThan'"><![CDATA[
+					and ${item.columnName} < #{item.operand}
+					]]></if>
+				<if test="item.operator.toString()=='moreThanEquals'">
+					and ${item.columnName} >=#{item.operand}
+				</if>
+				<if test="item.operator.toString()=='lessThanEquals'"><![CDATA[
+					and ${item.columnName} <=#{item.operand}
+					]]></if>
+			</if>
+		</foreach>
+	</select>
+
+	<select id="queryBySql" resultType="java.util.HashMap">
+		${sql}
+	</select>
+
+	<insert id="insertBySql">
+		${sql}
+	</insert>
+
+	<update id="updateBySql">
+		${sql}
+	</update>
+
+	<delete id="deleteBySql">
+		${sql}
+	</delete>
+
+</mapper>

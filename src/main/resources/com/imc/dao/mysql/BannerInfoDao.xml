@@ -27,6 +27,13 @@
     EFFECTIVE_START_DATE, EFFECTIVE_END_DATE, IS_LIVE_EVENT, EVENT_TITLE, EVENT_START_TIME,
     EVENT_END_TIME, EVENT_DESC, IS_DEL, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
   </sql>
+
+  <select id="findObjectById" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from BANNER_INFO
+    where BANNER_ID = #{bannerId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,8 +1,12 @@
 package com.imc.po;
 
+import com.imc.annotation.PoParam;
+import com.imc.po.common.BasePo;
+
 import java.util.Date;
 
-public class BannerInfoPo {
+@PoParam(table = "BANNER_INFO")
+public class BannerInfoPo extends BasePo{
     private String bannerId;
 
     private String bannerName;
