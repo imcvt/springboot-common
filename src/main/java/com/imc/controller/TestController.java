@@ -35,4 +35,6 @@ public class TestController {
         BannerInfoDto bannerInfoDto = testService.bannerDetail("63b318a2-cba9-4f0a-b46d-4727e6557a41");
         return JSONObject.toJSONString(bannerInfoDto);
     }
+
+    //从master拉取001分支
 }
