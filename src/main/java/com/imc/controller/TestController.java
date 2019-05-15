@@ -5,6 +5,7 @@ import com.imc.dao.common.CommonDao;
 import com.imc.dto.BannerInfoDto;
 import com.imc.filter.BannerFilter;
 import com.imc.po.BannerInfoPo;
+import com.imc.po.TagTypeInfoPo;
 import com.imc.service.TestService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class TestController {
         BannerInfoDto bannerInfoDto = testService.bannerDetail("63b318a2-cba9-4f0a-b46d-4727e6557a41");
 
         BannerInfoPo bannerInfoPo = commonDao.findObjectById(BannerInfoPo.class, "63b318a2-cba9-4f0a-b46d-4727e6557a41");
+
+        TagTypeInfoPo tagTypeInfoPo = commonDao.findObjectById(TagTypeInfoPo.class, "1b92de85-df33-4ea1-a96f-6975041f86da");
         return JSONObject.toJSONString(bannerInfoDto);
     }
 }

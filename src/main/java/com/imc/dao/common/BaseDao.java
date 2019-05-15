@@ -21,7 +21,7 @@ import java.util.*;
  */
 public abstract class BaseDao extends SqlSessionDaoSupport{
 
-    private static final String COMMONDAO_NAMESPACE = "BannerInfoDao";
+    private static final String COMMONDAO_NAMESPACE = "com.imc.dao.common.CommonDaoMapper";
 
     @Autowired
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
