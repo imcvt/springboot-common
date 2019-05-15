@@ -1,4 +1,4 @@
-package com.imc.dao.common;
+package com.imc.utils;
 
 import org.springframework.util.NumberUtils;
 
@@ -21,7 +21,7 @@ public class Sql2JavaMapping {
     }
 
     public static Class<?> getJavaType(int type) {
-        return (Class)sql2JavaMapping.get(type);
+        return sql2JavaMapping.get(type);
     }
 
     public static Object convert2JavaObject(String columnName, Class javaObjectClass, Object dbObject) {

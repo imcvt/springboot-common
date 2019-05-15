@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class BannerInfoDto {
+    private String id;
+
     private String bannerId;
 
     private String bannerName;
@@ -50,6 +52,14 @@ public class BannerInfoDto {
     private String updateUser;
 
     private Date updateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBannerId() {
         return bannerId;
