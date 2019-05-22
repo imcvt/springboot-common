@@ -22,7 +22,7 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class WebLogAspect {
-    private Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
     //拦截定义在controller包下任意类的公共方法
     @Pointcut("execution(public * com.imc.controller.*.*(..))")
