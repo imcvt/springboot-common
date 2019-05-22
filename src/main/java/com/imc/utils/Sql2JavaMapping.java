@@ -40,7 +40,7 @@ public class Sql2JavaMapping {
                     }
 
                     if (javaObjectClass.equals(Boolean.class)) {
-                        Number number = (Number)Number.class.cast(dbObject);
+                        Number number = Number.class.cast(dbObject);
                         return number.intValue() > 0;
                     }
                 }
